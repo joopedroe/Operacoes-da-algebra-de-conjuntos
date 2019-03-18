@@ -38,9 +38,6 @@ def Interseccao(valor1,valor2):
 
 def Diferenca(valor1,valor2):
     dife=[]
-    for i in valor2:
-        if i not in valor1:
-            dife.append(i)
     for i in valor1:
         if i not in valor2:
             dife.append(i)
@@ -62,7 +59,7 @@ def ConjuntosDasPartes(listaEntrada, listaInicial=None):
         for listaRetornada in ConjuntosDasPartes(listaEntrada[i + 1:], listaInicial + [sublista]):
             yield listaRetornada
         
-def ProdutoCartisiano(valor1,valor2):
+def ProdutoCartesiano(valor1,valor2):
     pro=[]
     for i in valor1:
         for c in valor2:
@@ -79,29 +76,31 @@ def UniaoDisjunta(valor1,valor2):
         va=i+'B'
         uniao.append(va)
     return uniao
-conjuPartes=[]
-print('Conjunto A={1,2,3,4,5,10}')
-print('Conjunto B={5,6,3,4,7,9}')
-expre1='{1,2,3}'
+
+
+expre1='{1,2,3,4}'
 expre2='{5,6,3,4,7,9}'
+
+print('Conjunto A=',expre1)
+print('Conjunto B=',expre2)
+
 uniao=Uniao(tratarExpressao(expre1),tratarExpressao(expre2))
-print('União: ',RetratarExpre(uniao))
+print('\n União: ',RetratarExpre(uniao))
 
 inter=Interseccao(tratarExpressao(expre1),tratarExpressao(expre2))
-print('Intersecção: ',RetratarExpre(inter))
+print('\n Intersecção: ',RetratarExpre(inter))
 
 dife=Diferenca(tratarExpressao(expre1),tratarExpressao(expre2))
-print('Diferença :',RetratarExpre(dife))
+print('\n Diferença A-B:',RetratarExpre(dife))
 
 comple=Complemento(tratarExpressao(expre1),tratarExpressao(expre2))
-print('Complemento : ~B =',RetratarExpre(comple))
+print('\n Complemento : ~B =',RetratarExpre(comple))
 
 conju=list(ConjuntosDasPartes(tratarExpressao(expre1)))
-print(conju)
-print('ConjuntosDasPartes : A =',RetrataConjunto(conju))
+print('\n ConjuntosDasPartes : A =',RetrataConjunto(conju))
 
-pro=ProdutoCartisiano(tratarExpressao(expre1),tratarExpressao(expre2))
-print('Produto Cartesiano: ',RetratarExpre(pro))
+pro=ProdutoCartesiano(tratarExpressao(expre1),tratarExpressao(expre2))
+print('\n Produto Cartesiano: ',RetratarExpre(pro))
 
 uniao=UniaoDisjunta(tratarExpressao(expre1),tratarExpressao(expre2))
-print('União Disjunta: A+B=',RetratarExpre(uniao))
+print('\n  União Disjunta: A+B=',RetratarExpre(uniao))
