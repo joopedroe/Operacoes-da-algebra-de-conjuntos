@@ -41,11 +41,14 @@ def Complemento(valor1,valor2):
             compe.append(i)
     return compe
 
-'''def ConjuntosDasPartes(valor1):
-    conju=['{}']
-    while cont != len(valor1):
-        valor='{'+valor1[0:i]+'}'
-        conju.append(valor)'''
+def ConjuntosDasPartes(listaEntrada, listaInicial=None):
+    listaInicial = listaInicial or []
+    yield listaInicial
+    if len(listaEntrada) == 0:
+        return
+    for i, sublista in enumerate(listaEntrada):
+        for listaRetornada in gerarSubListasRecursiva(listaEntrada[i + 1:], listaInicial + [sublista]):
+            yield listaRetornada
         
 def ProdutoCartisiano(valor1,valor2):
     pro=[]
@@ -80,6 +83,9 @@ print('Diferença :',RetratarExpre(dife))
 
 comple=Complemento(tratarExpressao(expre1),tratarExpressao(expre2))
 print('Complemento : ~B =',RetratarExpre(comple))
+
+conju=ConjuntosDasPartes(tratarExpressao(expre1))
+print('ConjuntosDasPartes : A =',RetratarExpre(conju))
 
 pro=ProdutoCartisiano(tratarExpressao(expre1),tratarExpressao(expre2))
 print('Produto Cartesiano: ',RetratarExpre(pro))
