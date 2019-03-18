@@ -11,6 +11,18 @@ def RetratarExpre(lista):
             expre+=valor+'}'
     return expre
 
+def RetrataConjunto(lista):
+    del(lista[0])
+    expre='{ {},'
+    for c in lista:
+        expre+='{'
+        for i,valor in enumerate(c):
+            if i < len(c)-1:
+                expre+=valor+','
+            else:
+                expre+=valor+'},'
+    return expre+'}'
+
 def Uniao(valor1,valor2):
     for i in valor2:
         if i not in valor1:
@@ -47,7 +59,7 @@ def ConjuntosDasPartes(listaEntrada, listaInicial=None):
     if len(listaEntrada) == 0:
         return
     for i, sublista in enumerate(listaEntrada):
-        for listaRetornada in gerarSubListasRecursiva(listaEntrada[i + 1:], listaInicial + [sublista]):
+        for listaRetornada in ConjuntosDasPartes(listaEntrada[i + 1:], listaInicial + [sublista]):
             yield listaRetornada
         
 def ProdutoCartisiano(valor1,valor2):
@@ -67,10 +79,10 @@ def UniaoDisjunta(valor1,valor2):
         va=i+'B'
         uniao.append(va)
     return uniao
-
+conjuPartes=[]
 print('Conjunto A={1,2,3,4,5,10}')
 print('Conjunto B={5,6,3,4,7,9}')
-expre1='{1,2,3,4,5,10}'
+expre1='{1,2,3}'
 expre2='{5,6,3,4,7,9}'
 uniao=Uniao(tratarExpressao(expre1),tratarExpressao(expre2))
 print('União: ',RetratarExpre(uniao))
@@ -84,8 +96,9 @@ print('Diferença :',RetratarExpre(dife))
 comple=Complemento(tratarExpressao(expre1),tratarExpressao(expre2))
 print('Complemento : ~B =',RetratarExpre(comple))
 
-conju=ConjuntosDasPartes(tratarExpressao(expre1))
-print('ConjuntosDasPartes : A =',RetratarExpre(conju))
+conju=list(ConjuntosDasPartes(tratarExpressao(expre1)))
+print(conju)
+print('ConjuntosDasPartes : A =',RetrataConjunto(conju))
 
 pro=ProdutoCartisiano(tratarExpressao(expre1),tratarExpressao(expre2))
 print('Produto Cartesiano: ',RetratarExpre(pro))
